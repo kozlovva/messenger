@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  backend:
+    image: kozlovva/messenger-api
+    depends_on:
+      - mongodb
+    ports:
+    - 8080:8080
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
+    networks:
+      - backend
+
+  mongodb:
+    image: mongo:latest
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    volumes:
+      - /Users/kozlovva/messenger/data/db:/data/db
+    hostname: mongo
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
